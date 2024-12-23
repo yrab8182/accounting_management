@@ -1,0 +1,30 @@
+{
+  "name": "accounting_management_backend",
+  "version": "1.0.0",
+  "description": "\"accounting management backend\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yrab8182/accounting_management.git"
+  },
+  "keywords": [
+    "accounting"
+  ],
+  "author": "yehudit Rab",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yrab8182/accounting_management/issues"
+  },
+  "homepage": "https://github.com/yrab8182/accounting_management#readme",
+  "devDependencies": {
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongoose": "^8.9.2",
+    "nodemon": "^3.1.9"
+  }
+}
