@@ -4,19 +4,19 @@ const Client = require("../../models/client");
 
 let mongoServer;
 
-beforeAll(async ()=>{
+beforeAll(async () => {
     mongoServer = await MongoMemoryServer.create()
     const uri = mongoServer.getUri()
     await mongoose.connect(uri)
 })
 
-afterAll(async ()=>{
+afterAll(async () => {
     await mongoose.disconnect()
     await mongoServer.stop()
 })
 
-describe(`Client Create Function`, ()=>{
-    it('should create a client successfully',async ()=>{
+describe(`Client Create Function`, () => {
+    it('should create a client successfully', async () => {
         const clientData = {
             name: "test",
             email: "test@gmail.com",
@@ -28,23 +28,24 @@ describe(`Client Create Function`, ()=>{
         expect(client.amount).toBe(clientData.amount);
     })
 
-    it('should throw an error when no unique email', async () => {
-        const clientData = {
-            name: "test2",
-            email: "test@gmail.com",
-            phone: "0555556667",
-            address: "Hakison 16"
-        };
+    describe(`Errors`, () => {
+        it('should throw an error if required fields are missing', async () => {
+            await expect(Client.createClient({ name: 'i', email: 'i@gmail.com' })).rejects.toThrow();
+            await expect(Client.createClient({ name: 'i', phone: '036161135' })).rejects.toThrow();
+            await expect(Client.createClient({ email: 'i@gmail.com', phone: '036161135' })).rejects.toThrow();
+        });
 
-        await expect(Client.createClient(clientData)).rejects.toThrow();
-    });
+        it('should throw an error when no unique name + phone', async () => {
+            const clientData = {
+                name: "test",
+                email: "test2@gmail.com",
+                phone: "0555556666",
+                address: "Hakison 16"
+            };
 
-    it('should throw an error if required fields are missing', async () => {
-        const clientData = {
-            phone: "0555556666",
-            address: "Hakison 15"
-        };
+            await expect(Client.createClient(clientData)).rejects.toThrow();
+        });
 
-        await expect(Client.createClient(clientData)).rejects.toThrow();
-    });
+    })
+
 })

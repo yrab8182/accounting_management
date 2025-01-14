@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 const Sequence = require('./sequence');
 
 const receiptSchema = new mongoose.Schema({
-    customer: { type: String, required: true },
-    date: { type: Date, required: true },
+    client: { type: mongoose.Schema.Types.ObjectId, ref: 'Client', required: true },
+    date: { type: Date, default:Date.now },
     amount: { type: Number, required: true, min: 0 },
     paymentMethod: { type: String, enum: ['cash', 'credit', 'bank_transfer'], required: true },
     details: String,
